@@ -45,18 +45,18 @@ RUN install-php-extensions \
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy Composer files first for Docker layer caching
-COPY composer.json composer.lock ./
+# Copy the complete Laravel application
+# BEFORE composer install because Laravel's
+# composer scripts execute artisan.
+COPY . .
 
+# Install PHP dependencies
 RUN composer install \
     --no-dev \
     --prefer-dist \
     --no-interaction \
     --no-progress \
     --optimize-autoloader
-
-# Copy Laravel application
-COPY . .
 
 # Copy compiled Vite assets
 COPY --from=assets /app/public/build ./public/build
