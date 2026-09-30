@@ -19,7 +19,7 @@ RUN npm run build
 # ==========================================
 # Stage 2: Laravel + FrankenPHP
 # ==========================================
-FROM dunglas/frankenphp:php8.3-bookworm
+FROM dunglas/frankenphp:php8.5-bookworm
 
 WORKDIR /app
 
@@ -71,12 +71,11 @@ RUN mkdir -p \
 
 RUN chmod -R ug+rwx storage bootstrap/cache
 
-# Clear cached configuration from local environment
+# Clear cached configuration
 RUN php artisan optimize:clear
 
 # Optimize Laravel for production
 RUN php artisan optimize
 
-# Vercel containers serve HTTP on port 80 by default.
-# FrankenPHP serves the Laravel public directory.
+# Start FrankenPHP
 CMD ["frankenphp", "php-server", "-r", "public/"]
