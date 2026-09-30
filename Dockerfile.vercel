@@ -19,7 +19,7 @@ RUN npm run build
 # ==========================================
 # Stage 2: Laravel + FrankenPHP
 # ==========================================
-FROM dunglas/frankenphp:php8.5-bookworm
+FROM dunglas/frankenphp:1-php8.5-bookworm
 
 WORKDIR /app
 
@@ -77,5 +77,5 @@ RUN php artisan optimize:clear
 # Optimize Laravel for production
 RUN php artisan optimize
 
-# Start FrankenPHP
+# Start Laravel using FrankenPHP
 CMD ["frankenphp", "php-server", "-r", "public/"]
