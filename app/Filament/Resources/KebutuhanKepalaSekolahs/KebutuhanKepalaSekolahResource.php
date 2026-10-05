@@ -18,9 +18,25 @@ class KebutuhanKepalaSekolahResource extends Resource
 {
     protected static ?string $model = KebutuhanKepalaSekolah::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHomeModern;
+    protected static string|BackedEnum|null $navigationIcon =
+        Heroicon::OutlinedHomeModern;
 
-    protected static ?string $recordTitleAttribute = 'nama_sekolah';
+    protected static ?string $navigationLabel =
+        'Data Kepala Sekolah';
+
+    protected static ?string $modelLabel =
+        'Data Sekolah';
+
+    protected static ?string $pluralModelLabel =
+        'Data Sekolah';
+
+    protected static string|\UnitEnum|null $navigationGroup =
+        'MENU UTAMA';
+
+    protected static ?int $navigationSort = 6;
+
+    protected static ?string $recordTitleAttribute =
+        'nama_sekolah';
 
     public static function form(Schema $schema): Schema
     {
@@ -31,7 +47,7 @@ class KebutuhanKepalaSekolahResource extends Resource
     {
         return KebutuhanKepalaSekolahsTable::configure($table);
     }
-    
+
     public static function getRelations(): array
     {
         return [
