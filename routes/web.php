@@ -6,6 +6,10 @@ use App\Http\Controllers\PublicKemitraanController;
 use App\Http\Controllers\PublicProgramController;
 use App\Http\Controllers\PublicSekolahController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArsipFileController;
+
+Route::get('/arsip-laporan/file/{file}', [ArsipFileController::class, 'show'])
+    ->name('arsip.file');
 
 Route::get('/', [PublicHomeController::class, 'index'])
     ->name('home');
