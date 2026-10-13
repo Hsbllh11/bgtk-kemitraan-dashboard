@@ -26,6 +26,12 @@ class LaporanFolder extends Model
         return $this->hasMany(LaporanFile::class, 'folder_id');
     }
 
+    /** Relasi ke user pembuat folder (kolom "Pemilik"). */
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
     /** Daftar folder dari root sampai folder ini (untuk breadcrumb). */
     public function breadcrumbs(): array
     {

@@ -79,4 +79,25 @@ class LaporanFile extends Model
             default => 'other',
         };
     }
+
+    /**
+     * Menentukan mode preview file berdasarkan ekstensi.
+     *
+     * Nilai yang mungkin:
+     * - pdf-langsung  : file PDF bisa langsung ditampilkan di browser
+     * - gambar        : file gambar ditampilkan via tag <img>
+     * - tabel         : file CSV/Excel ditampilkan sebagai tabel
+     * - pdf-konversi  : file Office dikonversi ke PDF via LibreOffice
+     * - tidak-ada     : tidak ada preview, hanya tombol download
+     */
+    public function getModePreviewAttribute(): string
+    {
+        return match (strtolower(pathinfo($this->nama, PATHINFO_EXTENSION))) {
+            'pdf'                                   => 'pdf-langsung',
+            'jpg', 'jpeg', 'png', 'gif', 'webp'     => 'gambar',
+            'csv', 'xls', 'xlsx'                    => 'tabel',
+            'doc', 'docx', 'ppt', 'pptx', 'odt', 'odp', 'rtf' => 'pdf-konversi',
+            default                                 => 'tidak-ada',
+        };
+    }
 }

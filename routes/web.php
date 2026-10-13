@@ -8,6 +8,13 @@ use App\Http\Controllers\PublicSekolahController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArsipFileController;
 
+Route::get('/_ini', fn () => [
+    'upload_max_filesize' => ini_get('upload_max_filesize'),
+    'post_max_size' => ini_get('post_max_size'),
+    'sapi' => php_sapi_name(),
+    'ini' => php_ini_loaded_file(),
+]);
+
 Route::get('/arsip-laporan/file/{file}', [ArsipFileController::class, 'show'])
     ->name('arsip.file');
 
@@ -28,3 +35,7 @@ Route::get('/program', [PublicProgramController::class, 'index'])
 
 Route::get('/kegiatan', [PublicKegiatanController::class, 'index'])
     ->name('kegiatan');
+
+Route::get('/arsip-laporan/file/{file}/pdf', [ArsipFileController::class, 'pdf'])->name('arsip.pdf');
+
+Route::get('/arsip-laporan/file/{file}/tabel', [ArsipFileController::class, 'tabel'])->name('arsip.tabel');
